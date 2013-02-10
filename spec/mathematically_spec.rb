@@ -74,6 +74,22 @@ describe Mathematically do
     end
   end
 
+  describe "#mult_fractions" do
+    it "should return an array representing the simplified fraction" do
+      multiply_fractions([1,2], [1,2]).should == [1,4]
+      multiply_fractions([1,2], [-1,3]).should == [-1,6]
+      multiply_fractions([-1,2], [1,3]).should == [-1,6]
+      multiply_fractions([-1,2], [-1,3]).should == [1,6]
+      multiply_fractions([15,4], [19,5]).should == [57,4]
+    end
+  end
+
+  describe "#to_mixed_number" do
+    it "should return a mixed number" do
+      to_mixed_number([57,4]).should == [14, 1, 4]
+    end
+  end
+
   describe "#arithmetic_mean" do
     it "should divide the sum of the elements by number of elements" do
       arithmetic_mean([7,5,8,9,4,5,8,4,10,4]).should eq(6.4)

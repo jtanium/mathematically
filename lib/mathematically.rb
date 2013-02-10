@@ -15,6 +15,8 @@ module Mathematically
     (factors_of(a)&factors_of(b)).sort.last
   end
   alias :gcf :greatest_common_factor
+  alias :greatest_common_divisor :greatest_common_factor
+  alias :gcd :greatest_common_divisor
 
   def least_common_multiple(a,b)
     (a*b)/gcf(a,b)
@@ -39,6 +41,20 @@ module Mathematically
     frac_a, frac_b = _convert_to_common_denominator(frac_a, frac_b)
 
     simplify_fraction(frac_a[0] - frac_b[0], frac_a[1])
+  end
+
+  def multiply_fractions(frac_a, frac_b)
+    simplify_fraction(frac_a[0] * frac_b[0], frac_a[1] * frac_b[1])
+  end
+
+  def to_mixed_number(frac)
+    simplified_fraction = simplify_fraction(*frac)
+    return frac if frac[0] <= frac[1]
+
+    whole = frac[0] / frac[1]
+
+    remainder = frac[0] % frac[1]
+    [whole, remainder, frac[1]]
   end
 
   def arithmetic_mean(set,answer_form=:float)

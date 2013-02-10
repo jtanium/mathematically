@@ -6,8 +6,6 @@ Gem::Specification.new do |s|
   s.description = "Simple math algorithms"
   s.authors     = ["Jason Edwards"]
   s.email       = 'jtanium@gmail.com'
-  s.files       = [
-      "lib/mathematically.rb",
-  ]
+  s.files       = ["lib/mathematically.rb"]
   s.homepage    = 'https://github.com/jtanium/mathematically'
 end
