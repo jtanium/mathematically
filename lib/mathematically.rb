@@ -106,6 +106,13 @@ module Mathematically
     set.map { |n| (n-mu)**2 }.inject { |sum,n| sum + n } / (set.length - 1)
   end
 
+  def population_standard_deviation(set)
+    Math.sqrt population_variance(set)
+  end
+
+  def sample_standard_deviation(set)
+    Math.sqrt sample_variance(set)
+  end
 
   # helper methods -- not part of the api...
   def _convert_to_common_denominator(frac_a, frac_b)

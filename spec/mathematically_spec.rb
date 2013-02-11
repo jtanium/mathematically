@@ -147,4 +147,16 @@ describe Mathematically do
     end
   end
 
+  describe "#population_standard_deviation" do
+    it "should return the standard deviation of the population" do
+      population_standard_deviation([14,16,5,6]).should eq(4.815340071064556)
+    end
+  end
+
+  describe "#sample_standard_deviation" do
+    it "should return the standard deviation of the sample" do
+      sample_standard_deviation([14,16,5,6]).should eq(5.560275772537426)
+    end
+  end
+
 end
