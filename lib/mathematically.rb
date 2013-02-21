@@ -11,6 +11,13 @@ module Mathematically
     facts
   end
 
+  def prime_factors_of(n)
+    factors_of_n = factors_of(n)
+    return [n] if factors_of_n == [1,n]
+    facts = [factors_of_n[1], factors_of_n[-2]]
+    facts.map { |f| prime_factors_of(f) }.flatten
+  end
+
   def greatest_common_factor(a,b)
     (factors_of(a)&factors_of(b)).sort.last
   end
@@ -112,6 +119,34 @@ module Mathematically
 
   def sample_standard_deviation(set)
     Math.sqrt sample_variance(set)
+  end
+
+  def pythagorean_theorem(a, b, answer_form=:float)
+    c_squared = a**2 + b**2
+    answer_form == :float ? Math.sqrt(c_squared) : simplify_radical(c_squared)
+  end
+
+  def distance(x1, y1, x2, y2, answer_form=:float)
+    pythagorean_theorem(x1 - x2, y1 - y2, answer_form)
+  end
+
+  def simplify_radical(n, root=2)
+    factor_counts = Hash.new { |h,k| h[k] = 0 }
+    prime_factors_of(n).each { |f| factor_counts[f] += 1 }
+    outside = []
+    inside = []
+    # puts "factor_counts: #{factor_counts.inspect}"
+    factor_counts.each do |factor,count|
+      while count >= root do
+        outside << factor
+        count = count - root
+      end
+      if count > 0
+        inside << factor
+      end
+    end
+    root_name = root == 2 ? :sqrt : "rt#{root}".to_sym
+    [outside.inject(:*) || 0, root_name, inside.inject(:*) || 0]
   end
 
   # helper methods -- not part of the api...

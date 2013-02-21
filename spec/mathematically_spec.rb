@@ -1,5 +1,3 @@
-$:.unshift File.join(File.dirname(__FILE__), '..')
-require 'rspec'
 require 'mathematically'
 
 describe Mathematically do
@@ -11,6 +9,17 @@ describe Mathematically do
       factors_of(9).should == [1,3,9]
       factors_of(6).should == [1,2,3,6]
       factors_of(18).should == [1,2,3,6,9,18]
+    end
+  end
+
+  describe "#prime_factors_of" do
+    it "should return an array containing the prime factors of the given number" do
+      prime_factors_of(12).should == [2, 2, 3]
+      prime_factors_of(60).should == [2, 2, 3, 5]
+      prime_factors_of(17).should == [17]
+      prime_factors_of(18).should == [2, 3, 3]
+      prime_factors_of(100).should == [2, 2, 5, 5]
+      prime_factors_of(900).should == [2, 2, 3, 3, 5, 5]
     end
   end
 
@@ -156,6 +165,53 @@ describe Mathematically do
   describe "#sample_standard_deviation" do
     it "should return the standard deviation of the sample" do
       sample_standard_deviation([14,16,5,6]).should eq(5.560275772537426)
+    end
+  end
+
+  describe "#pythagorean_theorem" do
+    it "should return the hypotenuse of the right triangle" do
+      pythagorean_theorem(3, 4).should eq(5.0)
+      pythagorean_theorem(5, 12, :radical).should eq([13,:sqrt,0])
+      pythagorean_theorem(19, 34).should eq(38.948684188300895)
+      pythagorean_theorem(14, 11, :radical).should eq([0,:sqrt,317])
+    end
+  end
+
+  describe "#simplify_radical" do
+    it "should return the simplified radical" do
+      simplify_radical(2 * 2 * 3).should eq([2,:sqrt,3])
+      simplify_radical(5 * 5).should eq([5,:sqrt,0])
+      simplify_radical(5 * 5 * 2).should eq([5,:sqrt,2])
+      simplify_radical(317).should eq([0,:sqrt,317])
+    end
+    it "should simplify radicals besides root 2" do
+      simplify_radical(27, 3).should eq([3,:rt3,0])
+      simplify_radical(125, 3).should eq([5,:rt3,0])
+      simplify_radical(1024, 5).should eq([4,:rt5,0])
+      simplify_radical(1024, 10).should eq([2,:rt10,0])
+    end
+    it "should handle multiple " do
+      simplify_radical(5 * 5 * 5).should == [5,:sqrt,5]
+      simplify_radical(2 * 2 * 2 * 2 * 2 * 2).should == [8,:sqrt,0]
+      simplify_radical(2 * 2 * 2 * 2 * 2 * 2 * 2).should == [8,:sqrt,2]
+      simplify_radical(3 * 3 * 3).should == [3,:sqrt,3]
+      simplify_radical(4 * 4 * 4, 3).should == [4,:rt3,0]
+      simplify_radical(2 * 2 * 2 * 2 * 3 * 3 * 5 * 5 * 7).should == [60,:sqrt,7]
+    end
+  end
+
+  describe "#distance" do
+    it "should return the distance between the two points" do
+      distance(8, 7, -8, 6).should == 16.0312195418814
+      distance(6, 3, 8, -3).should == 6.324555320336759
+      distance(6, 5, -7, -7).should == 17.69180601295413
+      distance(-6, 5, -7, -7).should == 12.041594578792296
+    end
+    it "should return the distance as a simplified radical" do
+      distance(8, 7, -8, 6, :radical).should == [0, :sqrt, 257]
+      distance(6, 3, 8, -3, :radical).should == [2, :sqrt, 10]
+      distance(6, 5, -7, -7, :radical).should == [0, :sqrt, 313]
+      distance(-6, 5, -7, -7, :radical).should == [0, :sqrt, 145]
     end
   end
 
